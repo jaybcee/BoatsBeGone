@@ -14,9 +14,9 @@ Send "Video" to receive footage from 511 Quebec and the Status.
 
 Send "Start" to be updated on the status of the bridge as stoppage occurs. You will be removed after 2 hours.
 
-Send "Start #" where # = the amounts of hours you would like to be notified for.
+Send "Start" to receive broadcasts for 2 hours.
 
-The system attempts to detect the direction of the crossing. They may not always be accurate.
+The system attempts to detect the direction of the crossing. They may not always be accurate. At the moment, the following values are used.
 
 Downstream (towards Jacques Cartier) is the longest from observation of data. Crossings take approximately 45-60 minutes.
 
@@ -25,6 +25,10 @@ Upstream (towards Champlain) takes approximately 20-30 minutes.
 Misc. Consists of Pleasure craft and takes approximately 20 minutes. It is the least accurate of them all as misc. is triggered via a crossing that is 2 hours early.
 
 Send "Stop" to remove yourself from live notifications.
+
+Send "Sched Sunday 14:37" to be pinged at that time to start.
+
+Send "Remove all" to remove all reminders/pinging.
 
 Send "Help" to receive this message again.
 
