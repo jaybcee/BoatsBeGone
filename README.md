@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ```
 Bind flask to wsgi.py and run with gunicorn
 This will receive requests from Facebook and update the database for notifications
-```python
+```bash
 gunicorn --bind 0.0.0.0:5000 wsgi:app
 ```
 
