@@ -26,6 +26,7 @@ python server.py
     <li>Alert users in real time of changes to the bridges state, lasting up to 2 hours (message "start")</li>
     <li>Stop receving updates (message "stop")</li>
     <li>Set-up reminders that ask if you'd like to start (message "sched sunday 13:05") <b>this feature works by enabling a cron job on linux, it needs work and could be improved via APScheduler or Celery)</b></li>
+    <li> To receive all these instructions (send "help")</li>
 </ul>
 
 SQLite is used because its lightweight, if using Heroku Web and Worker model, usage of something persistent such as PostgreSQL would have been better due to the ephemeral file system. 
