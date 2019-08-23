@@ -1,4 +1,4 @@
-<h1>BoatsBeGone</h1>
+<h1>⛵BoatsBeGone⛵</h1>
 
 BoatsBeGone is a Facebook Messaging Bot that powered by Flask that aims to be reduce nuisances associated with crossing the Victoria Bridge as a pedestrian/cyclist. It works by scraping data from the Greatlakes-Seaway website. 
 <h2>Getting Started</h2 
@@ -11,11 +11,12 @@ pip install -r requirements.txt
 ```
 Bind flask to wsgi.py and run with gunicorn
 This will receive requests from Facebook and update the database for notifications
-Run```python
+```python
 gunicorn --bind 0.0.0.0:5000 wsgi:app
 ```
+
 Start server.py to scrape and alert users
-Run```python
+```python
 python server.py
 ```
 <h6>What it can do</h6>
