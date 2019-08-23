@@ -33,6 +33,8 @@ Send "Remove all" to remove all reminders/pinging.
 Send "Help" to receive this message again.
 
 All queries are case insensitive.
+
+GitHub repo here: https://github.com/jaybcee/BoatsBeGone
 """
 
 app = Flask(__name__)
