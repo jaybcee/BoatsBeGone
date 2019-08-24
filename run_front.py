@@ -5,7 +5,7 @@ from flask import Flask, request, send_file
 import cronos
 from sql_db import *
 import requests
-import cv2
+# import cv2
 
 help_msg = """⛵ Welcome to BoatsBeGone ⛵
 This bot gives you the status of the bridge necessary for entry/exit of Parc Jean-Drapeau from the Victoria Bridge.
@@ -51,20 +51,20 @@ print("Hola!")
 def pong():
     return 'pong'
 
-@app.route('/img')
-def img():
-    with open('boat_vid.mp4', "wb") as file:
-        # get request
-        response = requests.get('http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
-        # write to file
-        file.write(response.content)
-        vidcap = cv2.VideoCapture('vid.mp4')
-        success, image = vidcap.read()
-        if success:
-            cv2.imwrite("boat_frame.jpg", image)
-            return send_file('boat_frame.jpg',mimetype = 'image/jpeg')
-        else:
-            return "error"
+# @app.route('/img')
+# def img():
+#     with open('boat_vid.mp4', "wb") as file:
+#         # get request
+#         response = requests.get('http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
+#         # write to file
+#         file.write(response.content)
+#         vidcap = cv2.VideoCapture('vid.mp4')
+#         success, image = vidcap.read()
+#         if success:
+#             cv2.imwrite("boat_frame.jpg", image)
+#             return send_file('boat_frame.jpg',mimetype = 'image/jpeg')
+#         else:
+#             return "error"
 
 
 # We will receive messages that Facebook sends our bot at this endpoint
