@@ -53,7 +53,7 @@ def pong():
 
 @app.route('/img')
 def img():
-    with open('boat_vid.mp4', "wb") as file:
+    with open('/home/ubuntu/BoatsBeGone/boat_vid.mp4', "wb") as file:
         # get request
         response = requests.get('http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
         # write to file
@@ -61,7 +61,7 @@ def img():
         vidcap = cv2.VideoCapture('vid.mp4')
         success, image = vidcap.read()
         if success:
-            cv2.imwrite("boat_frame.jpg", image)
+            cv2.imwrite("/home/ubuntu/BoatsBeGone/boat_frame.jpg", image)
             return send_file('boat_frame.jpg',mimetype = 'image/jpeg')
         else:
             return "error"
