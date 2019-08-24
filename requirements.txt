@@ -1,3 +1,4 @@
+APScheduler==3.6.1
 beautifulsoup4==4.8.0
 bs4==0.0.1
 certifi==2019.6.16
@@ -11,13 +12,20 @@ itsdangerous==1.1.0
 Jinja2==2.10.1
 lxml==4.4.0
 MarkupSafe==1.1.1
+numpy==1.17.0
+opencv-python==4.1.0.25
 PyJWT==1.7.1
+-e git+https://github.com/davidchua/pymessenger.git@c3aedb65b7a50e0ec82c0df39a566fceec734c85#egg=pymessenger
 pymongo==3.8.0
 PySocks==1.7.0
+python-crontab==2.3.8
+python-dateutil==2.8.0
 pytz==2019.2
 requests==2.22.0
+requests-toolbelt==0.9.1
 six==1.12.0
 soupsieve==1.9.2
 twilio==6.29.3
+tzlocal==2.0.0
 urllib3==1.25.3
 Werkzeug==0.15.5

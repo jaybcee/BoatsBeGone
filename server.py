@@ -7,9 +7,6 @@ from bs4 import BeautifulSoup
 from bot_pymessenger import *
 from sql_db import *
 
-conn = sqlite3.connect('sql_db.db')
-
-
 class BoatCrossing:
 
     def __init__(self):
@@ -118,9 +115,11 @@ def get_status(incoming_boat):
 
 
 def main():
+    conn = sqlite3.connect('sql_db.db')
     boat_crossing = BoatCrossing()
     boot_status = get_status(boat_crossing)
     update_status_db(boot_status,conn)
+    conn.close()
     if boot_status == "Unavailble":
         boat_crossing.start = datetime.now()
         boat_crossing.ignore = True  # raised when booting mid crossing to prevent crashing and better analytics
@@ -130,6 +129,7 @@ def main():
         current = get_status(boat_crossing)
 
         if previous == 'Available' and current == 'Unavailable':
+            conn = sqlite3.connect('sql_db.db')
             update_status_db(current,conn)
             boat_crossing.start = datetime.now()
             boat_crossing.update_status()
@@ -160,13 +160,16 @@ def main():
             time_str_boat = f"{pad1}{estimated_available.hour}:{pad2}{estimated_available.minute}"
             message = f"The bridge is UNAVAILABLE. Incoming boat is expected to be {boat_crossing.direction.upper()}{helper_str}. Expected availability at {time_str_boat}."
             notify_all(message, conn)
+            conn.close()
 
         elif previous == 'Unavailable' and current == 'Available':
+            conn = sqlite3.connect('sql_db.db')
             update_status_db(current,conn)
             # end the boat crossing
             boat_crossing.end = datetime.now()
             message = f"The bridge is now AVAILABLE. Happy biking! 🚴"
             notify_all(message, conn)
+            conn.close()
             try:
                 boat_crossing.get_delta()
                 boat_crossing.add_db()
