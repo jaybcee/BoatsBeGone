@@ -23,7 +23,9 @@ def add_to_active(id, conn):
             pad2 = '0'
         else:
             pad2 = ""
-        bot.send_quick_reply(id, f"Successfully added to the list, you will stop receiving notifications at {pad1}{time.hour}:{pad2}{time.minute}",quick_button_1)
+        bot.send_quick_reply(id,
+                             f"Successfully added to the list, you will stop receiving notifications at {pad1}{time.hour}:{pad2}{time.minute}",
+                             quick_button_1)
     else:
         bot.send_text_message(id,
                               "Hmm... You seem to already be enrolled. Please send 'stop' and 'start' if you would like to notified for 2 more hours.")
@@ -31,13 +33,15 @@ def add_to_active(id, conn):
     conn.commit()
     return found
 
+
 def remove_from_active(id, conn, silent):
     sql = 'DELETE FROM active WHERE id=?'
     c = conn.cursor()
     c.execute(sql, (id,))
     if not silent:
-        bot.send_text_message(id,
-                              "You will no longer receive live notifications. Send 'start 2' to be notified for 2 hours.")
+        bot.send_quick_reply(id,
+                             "You will no longer receive live notifications. Send 'start' to be notified for 2 hours.",
+                             quick_button_3)
 
     conn.commit()
 
@@ -47,8 +51,7 @@ def notify_once(id, conn):
     c.execute("SELECT status FROM status")
     stat = c.fetchone()[0]
     msg = f"The bridge is currently {stat.upper()}"
-    bot.send_quick_reply(id,msg,quick_button_2)
-
+    bot.send_quick_reply(id, msg, quick_button_2)
 
 
 def notify_all(message, conn):
