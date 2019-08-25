@@ -164,10 +164,10 @@ def main():
 
         elif previous == 'Unavailable' and current == 'Available':
             conn = sqlite3.connect('sql_db.db')
-            update_status_db(current,conn)
             # end the boat crossing
             boat_crossing.end = datetime.now()
             message = f"The bridge is now AVAILABLE. Happy biking! 🚴"
+            update_status_db(message,conn)
             notify_all(message, conn)
             conn.close()
             try:

@@ -95,11 +95,12 @@ def receive_message():
                         elif 'help' in msg_rec:
                             bot.send_quick_reply(recipient_id,help_msg,quick_button_2)
                         elif 'video' in msg_rec:
-                            notify_once(recipient_id, conn)
                             bot.send_video_url(recipient_id,
                                                'http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
+                            notify_once(recipient_id, conn)
                         elif 'image' in msg_rec:
                                 send_boat_img(recipient_id)
+                                notify_once(recipient_id,conn)
                         elif 'remove all' in msg_rec:
                             success = cronos.remove(recipient_id)
                             if success:
@@ -134,8 +135,8 @@ def receive_message():
                                                           f'All set! You will be pinged every {words[1].capitalize()} at {words[2]}')
 
                         else:
-                            bot.send_text_message(recipient_id,
-                                                  "Sorry, we didn't understand that message, send 'help' if you need help.")
+                            bot.send_quick_reply(recipient_id,
+                                                  "Sorry, we didn't understand that message, send 'help' if you need help.",quick_button_2)
 
                     # if user sends us a GIF, photo,video, or any other non-text item
                     if message['message'].get('attachments'):
