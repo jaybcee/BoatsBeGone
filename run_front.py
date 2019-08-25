@@ -90,7 +90,7 @@ def receive_message():
                         msg_rec = message['message']['text'].lower()
                         if 'status' in msg_rec:
                             notify_once(recipient_id, conn)
-                        elif msg_rec == 'start':
+                        elif 'start' in msg_rec:
                             add_to_active(recipient_id, conn)
                         elif 'stop' in msg_rec:
                             remove_from_active(recipient_id, conn, False)

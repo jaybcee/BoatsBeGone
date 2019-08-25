@@ -130,7 +130,6 @@ def main():
 
         if previous == 'Available' and current == 'Unavailable':
             conn = sqlite3.connect('sql_db.db')
-            update_status_db(current,conn)
             boat_crossing.start = datetime.now()
             boat_crossing.update_status()
             if boat_crossing.direction == 'upstream':
@@ -159,6 +158,7 @@ def main():
                 helper_str = ""
             time_str_boat = f"{pad1}{estimated_available.hour}:{pad2}{estimated_available.minute}"
             message = f"The bridge is UNAVAILABLE. Incoming boat is expected to be {boat_crossing.direction.upper()}{helper_str}. Expected availability at {time_str_boat}."
+            update_status_db(message,conn)
             notify_all(message, conn)
             conn.close()
 
