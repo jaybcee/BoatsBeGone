@@ -6,16 +6,16 @@ from bot_pymessenger import *
 quick_button = [
     {
         "content_type": "text",
-        "title": "Image",
+        "title": "Image 📷",
         "payload": "image",
     }, {
         "content_type": "text",
-        "title": "Stop",
+        "title": "Stop 🛑",
         "payload": "stop",
     },
     {
         "content_type": "text",
-        "title": "Video",
+        "title": "Video 🎥",
         "payload": "video",
     }
 ]
