@@ -21,8 +21,8 @@ quick_button_1 = [
 quick_button_2 = [
     {
         "content_type": "text",
-        "title": "Start ⛵ ",
-        "payload": "image",
+        "title": "Start ⛵",
+        "payload": "start",
     }, {
         "content_type": "text",
         "title": "Stop 🛑",
