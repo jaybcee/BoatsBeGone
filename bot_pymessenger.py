@@ -1,5 +1,5 @@
 from secrets import *
-from pymessenger2.bot import Bot
+from pymessenger3.bot import Bot
 
 ACCESS_TOKEN = ACCESS_TOKEN
 VERIFY_TOKEN = VERIFY_TOKEN
