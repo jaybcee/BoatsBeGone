@@ -7,6 +7,7 @@ from sql_db import *
 import requests
 import cv2
 
+
 help_msg = """⛵ Welcome to BoatsBeGone ⛵
 This bot gives you the status of the bridge necessary for entry/exit of Parc Jean-Drapeau from the Victoria Bridge.
 
@@ -41,7 +42,6 @@ GitHub repo here: https://github.com/jaybcee/BoatsBeGone
 
 app = Flask(__name__)
 
-print("Hola!")
 
 
 
@@ -51,8 +51,7 @@ def pong():
     return 'pong'
 
 
-@app.route('/img')
-def img():
+def send_boat_img(id):
     with open('boat_vid.mp4', "wb") as file:
         # get request
         response = requests.get('http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
@@ -62,10 +61,9 @@ def img():
         vidcap = cv2.VideoCapture('boat_vid.mp4')
         success, image = vidcap.read()
         if success:
-            cv2.imwrite("boat_frame.jpg", image)
-            return send_file('boat_frame.jpg', mimetype='image/jpeg')
-        else:
-            return "error"
+            cv2.imwrite("boat_frame.jpeg", image)
+            bot.send_image(id,'boat_frame.jpeg')
+
 
 
 # We will receive messages that Facebook sends our bot at this endpoint
@@ -91,7 +89,6 @@ def receive_message():
                     if message['message'].get('text'):
                         msg_rec = message['message']['text'].lower()
                         if 'status' in msg_rec:
-                            bot.send_image_url(recipient_id,"https://boatsbegone.bike/img")
                             notify_once(recipient_id, conn)
                         elif msg_rec == 'start':
                             add_to_active(recipient_id, conn)
@@ -104,8 +101,7 @@ def receive_message():
                             bot.send_video_url(recipient_id,
                                                'http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
                         elif 'image' in msg_rec:
-                            print("ciao")
-                            bot.send_image_url(recipient_id,"https://boatsbegone.bike/img")
+                                send_boat_img(recipient_id)
                         elif 'remove all' in msg_rec:
                             success = cronos.remove(recipient_id)
                             if success:
