@@ -45,6 +45,7 @@ print("Hola!")
 
 
 # def check_cron():
+bot.send_image_url("2882980658384210", "https://boatsbegone.bike/img")
 
 
 @app.route('/ping')
@@ -98,7 +99,7 @@ def receive_message():
                             remove_from_active(recipient_id, conn, False)
                         elif 'help' in msg_rec:
                             bot.send_text_message(recipient_id, help_msg)
-                        elif msg_rec == 'video':
+                        elif 'video' in msg_rec:
                             notify_once(recipient_id, conn)
                             bot.send_video_url(recipient_id,
                                                'http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
