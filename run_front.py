@@ -95,7 +95,7 @@ def receive_message():
                         elif 'stop' in msg_rec:
                             remove_from_active(recipient_id, conn, False)
                         elif 'help' in msg_rec:
-                            bot.send_text_message(recipient_id, help_msg)
+                            bot.send_quick_reply(recipient_id,help_msg,quick_button_2)
                         elif 'video' in msg_rec:
                             notify_once(recipient_id, conn)
                             bot.send_video_url(recipient_id,
