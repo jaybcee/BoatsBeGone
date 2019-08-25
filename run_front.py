@@ -60,6 +60,7 @@ def img():
         response = requests.get('http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
         # write to file
         file.write(response.content)
+        file.close()
         vidcap = cv2.VideoCapture('/home/ubuntu/BoatsBeGone/boat_vid.mp4')
         success, image = vidcap.read()
         if success:
@@ -92,6 +93,7 @@ def receive_message():
                     if message['message'].get('text'):
                         msg_rec = message['message']['text'].lower()
                         if 'status' in msg_rec:
+                            bot.send_image_url(recipient_id,"https://boatsbegone.bike/img")
                             notify_once(recipient_id, conn)
                         elif msg_rec == 'start':
                             add_to_active(recipient_id, conn)
@@ -103,7 +105,8 @@ def receive_message():
                             notify_once(recipient_id, conn)
                             bot.send_video_url(recipient_id,
                                                'http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
-                        elif msg_rec == 'image':
+                        elif 'image' in msg_rec:
+                            print("ciao")
                             bot.send_image_url(recipient_id,"https://boatsbegone.bike/img")
                         elif 'remove all' in msg_rec:
                             success = cronos.remove(recipient_id)
