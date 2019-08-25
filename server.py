@@ -174,7 +174,9 @@ def main():
                 boat_crossing.get_delta()
                 boat_crossing.add_db()
             except TypeError as e:
-                print(f"Error occured: {e} at {datetime}")
+                f = open("error.txt", "a")
+                f.write(f"Error occured: {e} at {datetime}")
+                f.close()
             boat_crossing = BoatCrossing()  # reset
 
 
@@ -185,4 +187,5 @@ try:
 except Exception as e:
     f = open("error.txt", "a")
     f.write(f"{e} @ {datetime.now()}")
+    f.close()
     time.sleep(120)

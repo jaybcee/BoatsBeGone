@@ -15,6 +15,8 @@ Send "Status" to receive a one-time notification of the bridge's status.
 
 Send "Video" to receive footage from 511 Quebec and the Status.
 
+Send "Image" to receive a photo of the 511 Quebec footage.
+
 Send "Start" to be updated on the status of the bridge as stoppage occurs. You will be removed after 2 hours.
 
 The system attempts to detect the direction of the crossing. They may not always be accurate. At the moment, the following values are used.
