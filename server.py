@@ -180,6 +180,9 @@ def main():
 
 print("Crawling for boats!")
 try:
-    main()
+    while True:
+        main()
 except Exception as e:
-    print(f"{e} @ {datetime.now()}")
+    f = open("error.txt", "a")
+    f.write(f"{e} @ {datetime.now()}")
+    time.sleep(120)

@@ -17,8 +17,6 @@ Send "Video" to receive footage from 511 Quebec and the Status.
 
 Send "Start" to be updated on the status of the bridge as stoppage occurs. You will be removed after 2 hours.
 
-Send "Start" to receive broadcasts for 2 hours.
-
 The system attempts to detect the direction of the crossing. They may not always be accurate. At the moment, the following values are used.
 
 Downstream (towards Jacques Cartier) is the longest from observation of data. Crossings take approximately 45-60 minutes.
