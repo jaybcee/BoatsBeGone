@@ -3,7 +3,22 @@ from datetime import datetime, timedelta
 
 from bot_pymessenger import *
 
-
+quick_button = [
+    {
+        "content_type": "text",
+        "title": "Image",
+        "payload": "image",
+    }, {
+        "content_type": "text",
+        "title": "Stop",
+        "payload": "stop",
+    },
+    {
+        "content_type": "text",
+        "title": "Video",
+        "payload": "video",
+    }
+]
 def add_to_active(id, conn):
     found = False
     sql = "INSERT INTO active VALUES (?,?)"
@@ -23,8 +38,7 @@ def add_to_active(id, conn):
             pad2 = '0'
         else:
             pad2 = ""
-        bot.send_text_message(id,
-                              f"Successfully added to the list, you will stop receiving notifications at {pad1}{time.hour}:{pad2}{time.minute}")
+        bot.send_quick_reply(id, f"Successfully added to the list, you will stop receiving notifications at {pad1}{time.hour}:{pad2}{time.minute}",quick_button)
     else:
         bot.send_text_message(id,
                               "Hmm... You seem to already be enrolled. Please send 'stop' and 'start' if you would like to notified for 2 more hours.")
