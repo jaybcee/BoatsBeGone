@@ -102,6 +102,8 @@ def receive_message():
                             notify_once(recipient_id, conn)
                             bot.send_video_url(recipient_id,
                                                'http://www.quebec511.info/Carte/Fenetres/camera.ashx?id=3379&format=mp4')
+                        elif msg_rec == 'image':
+                            bot.send_image_url(recipient_id,"https://boatsbegone.bike/img")
                         elif 'remove all' in msg_rec:
                             success = cronos.remove(recipient_id)
                             if success:
