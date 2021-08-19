@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "fbPageAccessToken",
+      "type": "java.lang.String",
+      "description": "Description for fbPageAccessToken."
+    },
+    {
+      "name": "fbBotToken",
+      "type": "java.lang.String",
+      "description": "Description for fbBotToken."
+    },
+    {
+      "name": "fbSubscribeUrl",
+      "type": "java.lang.String",
+      "description": "Description for fbSubscribeUrl."
+    },
+    {
+      "name": "fbSendUrl",
+      "type": "java.lang.String",
+      "description": "Description for fbSendUrl."
+    },
+    {
+      "name": "fbMessengerProfileUrl",
+      "type": "java.lang.String",
+      "description": "Description for fbMessengerProfileUrl."
+    }
+  ] }
