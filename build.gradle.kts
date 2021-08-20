@@ -29,6 +29,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("it.skrape:skrapeit:1.1.5")
     implementation("me.ramswaroop.jbot:jbot:4.1.0")
+    implementation("joda-time:joda-time:2.10.10")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -45,3 +46,8 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+azurewebapp {
+    subscription = System.getenv("AZURE_SUBSCRIPTION_ID")
+    resourceGroup = System.getenv("AZURE_RESOURCE_GROUP")
+    appName = System.getenv("AZURE_APP_NAME")
+}

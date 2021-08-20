@@ -7,10 +7,10 @@ import me.ramswaroop.jbot.core.common.JBot
 import me.ramswaroop.jbot.core.facebook.Bot
 import me.ramswaroop.jbot.core.facebook.models.Event
 import me.ramswaroop.jbot.core.facebook.models.User
+import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
-import java.util.*
 
 @JBot
 @Profile("facebook")
@@ -56,7 +56,7 @@ class FbBot : Bot() {
         if (map.containsKey(senderId)) {
             reply(event, "Looks like you are already registered! Extending your session for another 2 hours.")
         }
-        map[senderId] = Calendar.getInstance()
+        map[senderId] = DateTime.now()
         reply(event, QuickMessage(text))
         reply(event, QuickMessage(appData.currentMessage))
     }

@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class HeartbeatController {
-
     /**
      * Used to verify is server is running.
      */

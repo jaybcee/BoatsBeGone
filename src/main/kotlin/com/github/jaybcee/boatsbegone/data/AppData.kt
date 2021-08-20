@@ -1,7 +1,7 @@
 package com.github.jaybcee.boatsbegone.data
 
 import org.springframework.stereotype.Component
-import java.util.*
+import org.joda.time.DateTime;
 
 /**
  * A Spring component that holds data used across the application.
@@ -11,9 +11,13 @@ import java.util.*
  */
 @Component("appData")
 class AppData {
-    val activeUserMap = mutableMapOf<String, Calendar>()
-    var currentMessage = "The bridge is now AVAILABLE. Happy biking! 🚴"
-    val timeOfLastChange = Calendar.getInstance()
+    val activeUserMap = mutableMapOf<String, DateTime>()
+    final var timeOfLastChange: DateTime = DateTime.now()
+    var currentMessage = String.format(
+        "The bridge is now AVAILABLE. It has been available since %s:%s. Happy biking! 🚴",
+        timeOfLastChange.hourOfDay,
+        timeOfLastChange.minuteOfHour
+    )
 }
 
 
