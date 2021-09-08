@@ -10,20 +10,20 @@ import org.jsoup.nodes.Element
 /**
  * A data class representing the two bridges over the locks.
  */
-data class Lock(
-    var downstream: DocElement = DocElement(Element("tr")),
-    var upstream: DocElement = DocElement(Element("tr"))
+data class ScraperHelper(
+    var downstream: DocElement = DocElement(Element("span")),
+    var upstream: DocElement = DocElement(Element("span"))
 )
 
 /**
  * A function to scrape the data from website and map it into a Lock object.
  */
-fun scrape(): Lock {
+fun scrape(): ScraperHelper {
     return skrape(HttpFetcher) {
         request {
             url = "https://www.glslw-glvm.com/R2/jsp/MaiBrdgStatus_235.jsp?language=E"
         }
-        extractIt<Lock> {
+        extractIt<ScraperHelper> {
             htmlDocument {
                 it.downstream = findAll("#status")[0]
                 it.upstream = findAll("#status")[1]
@@ -31,4 +31,3 @@ fun scrape(): Lock {
         }
     }
 }
-

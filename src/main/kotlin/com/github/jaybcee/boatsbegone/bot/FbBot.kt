@@ -1,6 +1,10 @@
 package com.github.jaybcee.boatsbegone.bot
 
 import com.github.jaybcee.boatsbegone.data.AppData
+import com.github.jaybcee.boatsbegone.status.Statuses.SESSION_EXISTS
+import com.github.jaybcee.boatsbegone.status.Statuses.START_MESSAGE
+import com.github.jaybcee.boatsbegone.status.Statuses.STOP_MESSAGE
+import com.github.jaybcee.boatsbegone.status.Statuses.UNKNOWN_MESSAGE
 import me.ramswaroop.jbot.core.common.Controller
 import me.ramswaroop.jbot.core.common.EventType
 import me.ramswaroop.jbot.core.common.JBot
@@ -49,31 +53,25 @@ class FbBot : Bot() {
      */
     @Controller(events = [EventType.MESSAGE, EventType.QUICK_REPLY], pattern = "(?i)start.*")
     fun onAskForStart(event: Event) {
-        val text = "Hello! You have been added to the notification list. " +
-                "You will receive realtime updates for the next 2 hours."
         val senderId = event.sender.id
         val map = appData.activeUserMap
         if (map.containsKey(senderId)) {
-            reply(event, "Looks like you are already registered! Extending your session for another 2 hours.")
+            reply(event, SESSION_EXISTS)
         }
         map[senderId] = DateTime.now()
-        reply(event, QuickMessage(text))
+        reply(event, QuickMessage(START_MESSAGE))
         reply(event, QuickMessage(appData.currentMessage))
     }
 
     @Controller(events = [EventType.MESSAGE, EventType.QUICK_REPLY], pattern = "(?i)stop.*")
     fun onAskForStop(event: Event) {
         appData.activeUserMap.remove(event.sender.id)
-        reply(
-            event, QuickMessage(
-                "You have been removed from the list! You will stop receiving notifications shortly."
-            )
-        )
+        reply(event, QuickMessage(STOP_MESSAGE))
     }
 
     @Controller(events = [EventType.MESSAGE, EventType.QUICK_REPLY])
     fun onReceiveMessage(event: Event) {
-        reply(event, QuickMessage("Hmm... Not sure what to do about that. Chose an option below."))
+        reply(event, QuickMessage(UNKNOWN_MESSAGE))
     }
 
     /**
@@ -86,6 +84,4 @@ class FbBot : Bot() {
         event.message = message
         reply(event)
     }
-
-
 }

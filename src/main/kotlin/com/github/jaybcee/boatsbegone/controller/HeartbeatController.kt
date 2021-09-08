@@ -1,5 +1,6 @@
 package com.github.jaybcee.boatsbegone.controller
 
+import org.joda.time.DateTime
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -10,6 +11,6 @@ class HeartbeatController {
      */
     @GetMapping("/ping")
     fun pong(): String {
-        return "pong"
+        return "pong ${DateTime.now()}"
     }
 }

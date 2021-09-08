@@ -2,8 +2,15 @@ package com.github.jaybcee.boatsbegone.scraper
 
 import com.github.jaybcee.boatsbegone.bot.FbBot
 import com.github.jaybcee.boatsbegone.data.AppData
+import com.github.jaybcee.boatsbegone.status.Statuses.AVAILABLE_MESSAGE
+import com.github.jaybcee.boatsbegone.status.Statuses.EXPIRED_TIME
+import com.github.jaybcee.boatsbegone.status.Statuses.HOURS_AND_MINUTES
+import com.github.jaybcee.boatsbegone.status.Statuses.UNAVAILABLE_MESSAGE
+import com.github.jaybcee.boatsbegone.status.Statuses.UNAVAILABLE_SOON
 import org.joda.time.DateTime
 import org.joda.time.Hours
+import org.joda.time.Hours.hoursBetween
+import org.joda.time.Minutes
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
@@ -28,20 +35,16 @@ class Scraper {
     fun checkLock() {
         val rows = scrape()
         val currentUpstreamStatus = rows.upstream.text
-        if (previousUpstreamStatus == "Available" && currentUpstreamStatus.contains("Raison Soon")) {
-            val message = "The bridge is RAISING SOON. Get going!"
-            updateMessage(message)
-
+        if (previousUpstreamStatus == "Available" && currentUpstreamStatus.contains("Raising Soon")) {
+            updateMessage(UNAVAILABLE_SOON)
         } else if (previousUpstreamStatus.contains("Unavailable") && currentUpstreamStatus.contains("Available")) {
-            val message = "The bridge is now AVAILABLE. It has been available since %s:%s. Happy biking! 🚴"
-            updateMessageWithTime(message)
+            updateMessageWithTime(AVAILABLE_MESSAGE)
         } else if (
-            (previousUpstreamStatus.contains("Available") || previousUpstreamStatus.contains("Raising Soon"))
-            && currentUpstreamStatus.contains("Unavailable")
+            (previousUpstreamStatus.contains("Available") || previousUpstreamStatus.contains("Raising Soon")) &&
+            currentUpstreamStatus.contains("Unavailable")
         ) {
             appData.timeOfLastChange = DateTime.now()
-            val message = "The bridge is UNAVAILABLE. It has been unavailable since %s:%s."
-            updateMessageWithTime(message)
+            updateMessageWithTime(UNAVAILABLE_MESSAGE)
         }
         previousUpstreamStatus = currentUpstreamStatus
         cleanUpOldUsers()
@@ -62,10 +65,10 @@ class Scraper {
     fun cleanUpOldUsers() {
         val map = appData.activeUserMap
         map.keys.forEach {
-            val deltaHours = Hours.hoursBetween(map[it], DateTime.now())
-            if (deltaHours.hours >= 2) {
+            val deltaMinutes = Minutes.minutesBetween(map[it], DateTime.now())
+            if (deltaMinutes.minutes >= 120) {
                 map.remove(it)
-                fbBot.sendMessageToUser(it, "Time is up! You have been removed after 2 hours.")
+                fbBot.sendMessageToUser(it, EXPIRED_TIME)
             }
         }
     }
@@ -78,9 +81,8 @@ class Scraper {
 
     private fun updateMessageWithTime(text: String) {
         appData.timeOfLastChange = DateTime.now()
-        val time = appData.timeOfLastChange
-        val messageWithTime = String.format(text, time.hourOfDay, time.minuteOfHour)
+        val messageWithTime = String.format(text, appData.timeOfLastChange.toString(HOURS_AND_MINUTES))
         appData.currentMessage = messageWithTime
-        alertUsers(text)
+        alertUsers(messageWithTime)
     }
 }
